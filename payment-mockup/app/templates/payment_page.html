@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przykładowa strona płatności</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .pay {
+            background-color: #4CAF50;
+        }
+        .cancel {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Przykładowa strona płatności</h1>
+        <div class="details">
+            <p><strong>Pozycja:</strong> {{ book_title }}</p>
+            <p><strong>Cena:</strong> {{ amount }} PLN</p>
+            {% if status != 'pending' %}
+                <p><strong>Status:</strong> 
+                    {% if status == 'success' %}
+                        <span style="color:green;">Zapłacono</span>
+                    {% elif status == 'canceled' %}
+                        <span style="color:red;">Anulowano</span>
+                    {% else %}
+                        Nieznany status
+                    {% endif %}
+                </p>
+            {% else %}
+                <form action="{{ url_for('main.process_payment', payment_id=payment_id) }}" method="post">
+                    <input type="hidden" name="action" value="pay">
+                    <button class="button pay" type="submit">Zapłać teraz</button>
+                </form>
+                <form action="{{ url_for('main.process_payment', payment_id=payment_id) }}" method="post">
+                    <input type="hidden" name="action" value="cancel">
+                    <button class="button cancel" type="submit">Anuluj</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

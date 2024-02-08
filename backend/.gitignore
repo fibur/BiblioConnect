@@ -1,0 +1,52 @@
+# .gitignore for Flask and Python project
+
+# Python bytecode
+__pycache__/
+
+migrations/
+instance/
+venv/
+
+# Environment variables
+.env
+
+# Compiled Python files
+*.pyc
+
+# Database files
+*.db
+
+# Logs
+*.log
+
+# Virtual environment
+app/venv/
+
+# Dependency directories
+flask_sqlalchemy/
+flask_login/
+flask_migrate/
+flask_marshmallow/
+flask_cors/
+flask_jwt_extended/
+marshmallow-sqlalchemy/
+psycopg2/
+flask_bcrypt/
+
+# Additional files for a typical Python project
+*.egg-info/
+*.egg
+*.egg-info/
+*.dist-info/
+*.pyo
+*.pyd
+*.so
+*.dll
+*.bak
+*.swp
+*.swo
+*.DS_Store
+*.coverage
+*.cache
+*.idea/
+.vscode/

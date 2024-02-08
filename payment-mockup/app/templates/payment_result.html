@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status płatności</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .success {
+            color: green;
+        }
+        .cancelled {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Status płatności</h1>
+    {% if status == 'success' %}
+        <p class="success">Płatność została dokonana pomyślnie!</p>
+        <p>Możesz teraz wrócić do strony sklepu.</p>
+    {% elif status == 'canceled' %}
+        <p class="cancelled">Niestety, płatność została anulowana.</p>
+        <p>Spróbuj ponownie lub skontaktuj się z obsługą klienta.</p>
+    {% else %}
+        <p>Nieznany status płatności.</p>
+    {% endif %}
+</body>
+</html>

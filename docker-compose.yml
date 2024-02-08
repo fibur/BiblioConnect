@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db-files:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - DATABASE_URL=postgresql://root:root@db/backend_db 
+    command: flask run
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: npm start
+    depends_on:
+      - backend
+  
+  payment-mockup:
+    build:
+      context: ./payment-mockup
+      dockerfile: Dockerfile
+    volumes:
+      - ./payment-mockup:/app
+    ports:
+      - "8080:5000"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - DATABASE_URL=postgresql://root:root@db/payment_db 
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

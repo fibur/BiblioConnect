@@ -1,0 +1,12 @@
+flask
+flask_sqlalchemy
+flask_login
+flask_migrate
+flask_marshmallow
+flask_cors
+flask_jwt_extended
+marshmallow-sqlalchemy
+psycopg2
+flask_bcrypt 
+requests
+pydifact

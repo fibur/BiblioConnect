@@ -1,0 +1,2 @@
+CREATE DATABASE backend_db;
+GRANT ALL PRIVILEGES ON DATABASE backend_db TO root;
